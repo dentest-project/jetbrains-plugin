@@ -1,0 +1,39 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>tech.dentest</id>
+    <name>Dentest</name>
+    <vendor>dentest.tech</vendor>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="tech.dentest.settings.PluginSettings"/>
+    </extensions>
+
+    <actions>
+        <group id="Dentest.ToolbarRunGroup">
+            <add-to-group group-id="ToolbarRunGroup" anchor="last" />
+            <action
+                    class="tech.dentest.actions.PullAction"
+                    id="Dentest.Actions.ToolBar.PullAction"
+                    icon="AllIcons.Vcs.Fetch"
+                    text="Dentest Pull"
+            />
+        </group>
+        <group id="Dentest.MainMenu" text="Dentest" description="Manage your Dentest integration">
+            <add-to-group group-id="MainMenu" anchor="before" relative-to-action="HelpMenu" />
+            <action
+                    class="tech.dentest.actions.PullAction"
+                    id="Dentest.Actions.PullAction"
+                    icon="AllIcons.Vcs.Fetch"
+                    text="Pull"
+            />
+            <action
+                class="tech.dentest.actions.ConfigurationAction"
+                id="Dentest.Actions.ConfigurationAction"
+                icon="AllIcons.General.Settings"
+                text="Configuration"
+            />
+        </group>
+    </actions>
+</idea-plugin>
