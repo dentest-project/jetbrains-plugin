@@ -48,3 +48,38 @@ You'll be able to select which features you want to pull by using this action
 Plugin based on the [IntelliJ Platform Plugin Template][template].
 
 [template]: https://github.com/JetBrains/intellij-platform-plugin-template
+
+### Contribute
+
+#### Plugin signing:
+
+```
+mkdir cert
+cd cert
+
+openssl genpkey\
+  -aes-256-cbc\
+  -algorithm RSA\
+  -out private_encrypted.pem\
+  -pkeyopt rsa_keygen_bits:4096
+  
+openssl rsa\
+  -in private_encrypted.pem\
+  -out private.pem
+
+openssl req\
+  -key private.pem\
+  -new\
+  -x509\
+  -days 365\
+  -out chain.crt
+```
+
+In `Run > Edit Configurations`, configure the following env vars for Gradle tasks:
+
+| PRIVATE_KEY          | cert/private.pem |
+| CERTIFICATE_CHAIN    | cert/chain.crt   |
+| PRIVATE_KEY_PASSWORD | your password    |
+
+Then run the task: `[signPlugin]`
+
