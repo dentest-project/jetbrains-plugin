@@ -82,4 +82,3 @@ In `Run > Edit Configurations`, configure the following env vars for Gradle task
 | PRIVATE_KEY_PASSWORD | your password    |
 
 Then run the task: `[signPlugin]`
-
