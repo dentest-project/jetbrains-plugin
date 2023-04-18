@@ -2,6 +2,14 @@
 
 # Dentest Changelog
 
+## [0.1.5]
+### Added
+- Extended the range of compatible IDEs
+
+## [0.1.4]
+### Added
+- Extended the range of compatible IDEs
+
 ## [0.1.3]
 ### Added
 - Removed compatible IDEs end limit
