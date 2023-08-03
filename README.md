@@ -77,8 +77,9 @@ openssl req\
 
 In `Run > Edit Configurations`, configure the following env vars for Gradle tasks:
 
-| PRIVATE_KEY          | cert/private.pem |
-| CERTIFICATE_CHAIN    | cert/chain.crt   |
-| PRIVATE_KEY_PASSWORD | your password    |
+| PRIVATE_KEY          | cert/private.pem   |
+| CERTIFICATE_CHAIN    | cert/chain.crt     |
+| PRIVATE_KEY_PASSWORD | your password      |
+| PUBLISH_TOKEN        | your publish token |
 
 Then run the task: `[signPlugin]`
