@@ -2,6 +2,18 @@
 
 # Dentest Changelog
 
+## [0.1.8]
+### Added
+- Back to stable channel
+
+## [0.1.7]
+### Added
+- Extended the range of compatible IDEs
+
+## [0.1.6]
+### Added
+- Extended the range of compatible IDEs
+
 ## [0.1.5]
 ### Added
 - Extended the range of compatible IDEs
