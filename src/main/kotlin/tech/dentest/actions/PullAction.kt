@@ -7,21 +7,24 @@ import tech.dentest.http.Client
 import tech.dentest.settings.PluginSettings
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.project.Project
 import java.io.File
 import java.util.concurrent.TimeUnit
 
 class PullAction: AnAction() {
     private val client = Client()
-    private val writer = FeatureWriter()
 
     override fun actionPerformed(e: AnActionEvent) {
-        val state = PluginSettings.getInstance().state
+        val project = e.project ?: return
+        val writer = FeatureWriter(project)
 
-        if (state?.token == null || !dryPull()) {
+        val state = PluginSettings.getInstance(project).state
+
+        if (state?.token == null || !dryPull(project)) {
             ConfigurationDialog(e.project).showAndGet()
         }
 
-        if (!PullDialog().showAndGet()) {
+        if (!PullDialog(project).showAndGet()) {
             return
         }
 
@@ -36,7 +39,7 @@ class PullAction: AnAction() {
         }
     }
 
-    private fun dryPull(): Boolean {
-        return client.dryPull()
+    private fun dryPull(project: Project): Boolean {
+        return client.dryPull(project)
     }
 }

@@ -1,14 +1,15 @@
 package tech.dentest
 
+import com.intellij.openapi.project.Project
 import tech.dentest.model.Feature
 import tech.dentest.settings.PluginSettings
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
 
-class FeatureWriter {
+class FeatureWriter(val project: Project) {
     fun write(features: List<Feature>?) {
-        val state = PluginSettings.getInstance().state
+        val state = PluginSettings.getInstance(project).state
 
         if (features == null) {
             return

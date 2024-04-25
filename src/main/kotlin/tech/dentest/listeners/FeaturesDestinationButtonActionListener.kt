@@ -9,14 +9,22 @@ import java.awt.event.ActionListener
 import javax.swing.JButton
 import javax.swing.JPanel
 
-class FeaturesDestinationButtonActionListener (private val panel: JPanel, private val trigger: JButton, private val project: Project?): ActionListener {
+class FeaturesDestinationButtonActionListener (
+    private val panel: JPanel,
+    private val trigger: JButton,
+    private val project: Project?
+): ActionListener {
     override fun actionPerformed(e: ActionEvent?) {
+        if (project == null) {
+            return
+        }
+
         val fileChooserDescriptor = FileChooserDescriptor(false, true, false, false, false, false)
 
         fileChooserDescriptor.title = "Features Destination"
 
         FileChooser.chooseFile(fileChooserDescriptor, project, null) {
-            val state = PluginSettings.getInstance().state
+            val state = PluginSettings.getInstance(project).state
 
             trigger.text = it.path
             state?.destinationPath = it.path

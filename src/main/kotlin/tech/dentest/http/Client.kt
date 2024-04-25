@@ -2,31 +2,24 @@ package tech.dentest.http
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.intellij.openapi.project.Project
 import tech.dentest.model.Feature
 import tech.dentest.settings.PluginSettings
-import com.intellij.util.io.encodeUrlQueryParameter
 import okhttp3.*
+import java.net.URLEncoder
 
 class Client {
     private val client = OkHttpClient()
 
-    fun dryPull(): Boolean {
-        val response = client.newCall(getGetRequest("pull/paths")).execute();
+    fun dryPull(project: Project): Boolean {
+        val response = client.newCall(getGetRequest(project, "pull/paths")).execute();
         response.body?.close()
 
         return response.code == 200
     }
 
-    fun pullPaths(): List<String> {
-        val response = client.newCall(getGetRequest("pull/paths")).execute();
-        val contents = response.body?.string().toString()
-        response.body?.close()
-
-        return ObjectMapper().readValue(contents, object : TypeReference<List<String>>(){})
-    }
-
-    fun pullFeatures(): List<Feature> {
-        val request = getGetRequest("pull/features?inlineParameterWrapper=${PluginSettings.getInstance().state?.inlineParameterWrappingString?.encodeUrlQueryParameter()}")
+    fun pullFeatures(project: Project): List<Feature> {
+        val request = getGetRequest(project, "pull/features?inlineParameterWrapper=${URLEncoder.encode(PluginSettings.getInstance(project).state?.inlineParameterWrappingString, "utf-8")}")
         val response = client.newCall(request).execute();
         val contents = response.body?.string().toString()
         response.body?.close()
@@ -34,8 +27,8 @@ class Client {
         return ObjectMapper().readValue(contents, object : TypeReference<List<Feature>>(){})
     }
 
-    private fun getGetRequest(url: String): Request {
-        val state = PluginSettings.getInstance().state
+    private fun getGetRequest(project: Project, url: String): Request {
+        val state = PluginSettings.getInstance(project).state
 
         return Request
             .Builder()

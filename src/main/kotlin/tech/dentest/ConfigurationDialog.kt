@@ -39,8 +39,8 @@ class ConfigurationDialog(private val project: Project?): DialogWrapper(true) {
     init {
         init()
         title = "Dentest Configuration"
-        val state = PluginSettings.getInstance().state
-        if (state != null) {
+        if (project != null) {
+            val state = PluginSettings.getInstance(project).state
             txtApi.text = state.api
             txtToken.text = state.token
             txtInlineParameterWrappingString.text = state.inlineParameterWrappingString
@@ -78,7 +78,11 @@ class ConfigurationDialog(private val project: Project?): DialogWrapper(true) {
         val token = txtToken.text
         val inlineParameterWrappingString = txtInlineParameterWrappingString.text
         val subsequentScript = txtSubsequentScript.text
-        val state = PluginSettings.getInstance().state
+        val state = if (project != null) {
+            PluginSettings.getInstance(project).state
+        } else {
+            null
+        }
 
         state?.api = api
         state?.token = token
@@ -133,6 +137,10 @@ class ConfigurationDialog(private val project: Project?): DialogWrapper(true) {
     }
 
     private fun dryPull(): Boolean {
-        return Client.getInstance().dryPull()
+        if (project == null) {
+            return true
+        }
+
+        return Client.getInstance().dryPull(project)
     }
 }
