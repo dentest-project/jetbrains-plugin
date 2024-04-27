@@ -13,16 +13,16 @@ class Client {
 
     fun dryPull(project: Project): Boolean {
         val response = client.newCall(getGetRequest(project, "pull/paths")).execute();
-        response.body?.close()
+        response.body.close()
 
         return response.code == 200
     }
 
     fun pullFeatures(project: Project): List<Feature> {
-        val request = getGetRequest(project, "pull/features?inlineParameterWrapper=${URLEncoder.encode(PluginSettings.getInstance(project).state?.inlineParameterWrappingString, "utf-8")}")
+        val request = getGetRequest(project, "pull/features?inlineParameterWrapper=${URLEncoder.encode(PluginSettings.getInstance(project).state.inlineParameterWrappingString, "utf-8")}")
         val response = client.newCall(request).execute();
-        val contents = response.body?.string().toString()
-        response.body?.close()
+        val contents = response.body.string().toString()
+        response.body.close()
 
         return ObjectMapper().readValue(contents, object : TypeReference<List<Feature>>(){})
     }
@@ -32,8 +32,8 @@ class Client {
 
         return Request
             .Builder()
-            .url("${state?.api}/$url")
-            .addHeader("Authorization", "Pull ${state?.token}")
+            .url("${state.api}/$url")
+            .addHeader("Authorization", "Pull ${state.token}")
             .get()
             .build()
     }

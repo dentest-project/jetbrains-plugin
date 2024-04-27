@@ -27,7 +27,7 @@ class FeaturesDestinationButtonActionListener (
             val state = PluginSettings.getInstance(project).state
 
             trigger.text = it.path
-            state?.destinationPath = it.path
+            state.destinationPath = it.path
         }
 
         panel.updateUI()

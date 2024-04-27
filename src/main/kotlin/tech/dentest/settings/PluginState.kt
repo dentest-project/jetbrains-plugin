@@ -8,5 +8,5 @@ class PluginState {
     var destinationPath: String? = null
     var inlineParameterWrappingString: String = "\""
     var subsequentScript: String? = null
-    var selectedFeaturesForPull: List<Feature> = listOf()
+    var selectedFeaturesForPull: MutableList<Feature> = mutableListOf()
 }

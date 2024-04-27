@@ -2,6 +2,12 @@
 
 # Dentest Changelog
 
+## [0.2.0]
+### Added
+- Tree visualisation of features instead of list
+- Open the first feature after download
+- Per-project configuration instead of global one
+
 ## [0.1.9]
 ### Added
 - Extended the range of compatible IDEs

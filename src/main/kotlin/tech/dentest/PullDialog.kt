@@ -2,13 +2,14 @@ package tech.dentest
 
 import com.intellij.openapi.project.Project
 import tech.dentest.http.Client
-import tech.dentest.listeners.FeatureListSelectionListener
 import tech.dentest.model.Feature
 import com.intellij.openapi.ui.DialogWrapper
-import com.intellij.ui.components.JBList
+import tech.dentest.component.FeatureTree
+import tech.dentest.settings.PluginSettings
+import java.awt.Dimension
 import javax.swing.JComponent
 
-class PullDialog(private val project: Project?): DialogWrapper(true) {
+class PullDialog(private val project: Project): DialogWrapper(true) {
     private val client = Client.getInstance()
 
     init {
@@ -17,20 +18,17 @@ class PullDialog(private val project: Project?): DialogWrapper(true) {
     }
 
     override fun createCenterPanel(): JComponent {
-        val list = JBList(buildListModel())
+        val features = buildListModel()
+        val tree = FeatureTree(features, PluginSettings.getInstance(project).state)
 
-        if (project != null) {
-            list.addListSelectionListener(FeatureListSelectionListener(project))
-        }
+        return tree.getTreeComponent()
+    }
 
-        return list
+    override fun getInitialSize(): Dimension? {
+        return Dimension(900, 600)
     }
 
     private fun buildListModel(): List<Feature> {
-        if (project == null) {
-            return emptyList()
-        }
-
         return client.pullFeatures(project)
     }
 }

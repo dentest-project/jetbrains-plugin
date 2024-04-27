@@ -20,7 +20,7 @@ class PullAction: AnAction() {
 
         val state = PluginSettings.getInstance(project).state
 
-        if (state?.token == null || !dryPull(project)) {
+        if (state.token == null || !dryPull(project)) {
             ConfigurationDialog(e.project).showAndGet()
         }
 
@@ -28,11 +28,11 @@ class PullAction: AnAction() {
             return
         }
 
-        writer.write(state?.selectedFeaturesForPull)
+        writer.write(state.selectedFeaturesForPull)
 
-        state?.selectedFeaturesForPull = listOf()
+        state.selectedFeaturesForPull = mutableListOf()
 
-        if (state?.subsequentScript != null && !state.subsequentScript!!.isEmpty()) {
+        if (state.subsequentScript != null && state.subsequentScript!!.isNotEmpty()) {
             val arguments = state.subsequentScript!!.split(' ').toTypedArray()
 
             ProcessBuilder(*arguments).directory(File(e.project?.basePath!!)).start().also { it.waitFor(60, TimeUnit.SECONDS) }
