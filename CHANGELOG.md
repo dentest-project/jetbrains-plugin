@@ -2,6 +2,10 @@
 
 # Dentest Changelog
 
+## [0.2.1]
+### Added
+- Extended the range of compatible IDEs
+
 ## [0.2.0]
 ### Added
 - Tree visualisation of features instead of list
