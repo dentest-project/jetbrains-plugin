@@ -2,6 +2,18 @@
 
 # Dentest Changelog
 
+## [0.2.4]
+### Added
+- Removed max IDE version
+
+## [0.2.3]
+### Added
+- Extended the range of compatible IDEs
+
+## [0.2.2]
+### Added
+- Extended the range of compatible IDEs
+
 ## [0.2.1]
 ### Added
 - Extended the range of compatible IDEs
