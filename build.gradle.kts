@@ -50,7 +50,14 @@ qodana {
     saveReport.set(true)
     showReport.set(System.getenv("QODANA_SHOW_REPORT")?.toBoolean() ?: false)
 }
-
+intellijPlatform {
+    pluginConfiguration {
+        ideaVersion {
+            sinceBuild = properties("pluginSinceBuild")
+            untilBuild = provider { null }
+        }
+    }
+}
 tasks {
     // Set the JVM compatibility versions
     properties("javaVersion").let {
@@ -68,9 +75,6 @@ tasks {
     }
 
     patchPluginXml {
-        //version.set(properties("pluginVersion"))
-        sinceBuild.set(properties("pluginSinceBuild"))
-
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
         pluginDescription.set(
             projectDir.resolve("README.md").readText().lines().run {

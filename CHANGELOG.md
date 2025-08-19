@@ -2,6 +2,10 @@
 
 # Dentest Changelog
 
+## [0.2.5]
+### Added
+- Actually removed max IDE version
+
 ## [0.2.4]
 ### Added
 - Removed max IDE version
