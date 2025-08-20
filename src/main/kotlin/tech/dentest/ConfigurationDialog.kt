@@ -75,7 +75,7 @@ class ConfigurationDialog(private val project: Project?): DialogWrapper(true) {
 
     override fun doOKAction() {
         val api = txtApi.text
-        val token = txtToken.text
+        val token = String(txtToken.password)
         val inlineParameterWrappingString = txtInlineParameterWrappingString.text
         val subsequentScript = txtSubsequentScript.text
         val state = if (project != null) {

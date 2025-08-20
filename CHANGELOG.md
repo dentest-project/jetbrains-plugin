@@ -2,6 +2,10 @@
 
 # Dentest Changelog
 
+## [0.2.6]
+### Added
+- Removed usage of deprecated API
+
 ## [0.2.5]
 ### Added
 - Actually removed max IDE version
